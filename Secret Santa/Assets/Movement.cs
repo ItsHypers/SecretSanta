@@ -73,6 +73,11 @@ public class Movement : MonoBehaviour
         }
 
     }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+    if (collision.gameObject.tag == "snowball")
+        Debug.Log("test");
+    }
 
     void Move()
     {
