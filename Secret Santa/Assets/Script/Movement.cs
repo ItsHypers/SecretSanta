@@ -53,11 +53,13 @@ public class Movement : MonoBehaviour
         //If Player is moving Right. Do this
         {
             transform.rotation = Quaternion.Euler(0,180,0);
+            spriteRenderer.sprite = forwardsprite;
         }
         else if (moveX == -1) 
         //If Player is moving Left. Do this
         {
             transform.rotation = Quaternion.Euler(0,0,0);
+            spriteRenderer.sprite = forwardsprite;
         }
 
         if (moveY == 1) 
