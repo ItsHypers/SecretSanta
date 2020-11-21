@@ -52,3 +52,4 @@ Packages/packages-lock.json
 Packages/manifest.json
 /Secret Santa/Library/*
 /Secret Santa/Temp/*
+*.dll

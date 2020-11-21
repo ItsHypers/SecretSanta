@@ -37,31 +37,37 @@ public class Movement : MonoBehaviour
         }
     }
     
-    void FixedUpdate() //Fixed updates is accurate with frames / drops, so is used for anything to do with
+    void FixedUpdate() 
+    //Fixed updates is accurate with frames / drops, so is used for anything to do with
     //physics. (like walking)
     {
         Move();
     }
-    void ProcessInputs() //Assigns all the inputs used for walking
+    void ProcessInputs() 
+    //Assigns all the inputs used for walking
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         md = new Vector2(moveX, moveY).normalized;
-        if (moveX == 1) //If Player is moving Right. Do this
+        if (moveX == 1) 
+        //If Player is moving Right. Do this
         {
             transform.rotation = Quaternion.Euler(0,180,0);
         }
-        else if (moveX == -1) //If Player is moving Left. Do this
+        else if (moveX == -1) 
+        //If Player is moving Left. Do this
         {
             transform.rotation = Quaternion.Euler(0,0,0);
         }
 
-        if (moveY == 1) //If Player is moving Down. Do this
+        if (moveY == 1) 
+        //If Player is moving Down. Do this
         {
             spriteRenderer.sprite = backsprite;
             //Sets Sprite to "back Sprite"
         }
-        else if (moveY == -1) //If Player is moving Up. Do this
+        else if (moveY == -1) 
+        //If Player is moving Up. Do this
         {
             spriteRenderer.sprite = forwardsprite;
         }
