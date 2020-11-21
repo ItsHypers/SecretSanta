@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     public Sprite backsprite;
     public Sprite forwardsprite;
     private SpriteRenderer spriteRenderer; 
+    public Animator animator;
 
 
 
@@ -72,6 +73,13 @@ public class Movement : MonoBehaviour
         //If Player is moving Up. Do this
         {
             spriteRenderer.sprite = forwardsprite;
+            animator.SetBool("Idle", false);
+            animator.SetBool("Walking", true);
+        }
+        else
+        {
+            animator.SetBool("Idle", true);
+            animator.SetBool("Walking", false);
         }
 
     }
