@@ -14,8 +14,14 @@ public class SnowballShot : MonoBehaviour
     [SerializeField]
     private bool Right;
     [SerializeField]
+    ParticleSystem hitParticles;
+    [SerializeField]
     private bool Left;
 
+    void Awake()
+    {
+        hitParticles = GetComponentInChildren <ParticleSystem> ();
+    }
     private void Update()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -43,12 +49,14 @@ public class SnowballShot : MonoBehaviour
     // Assuming that your crate has tag of "crate"
         if (other.gameObject.tag == "Player")
         {
+        hitParticles.Play();
         GetComponent<SpriteRenderer>().enabled = false;
         Destroy(gameObject, 0.5f);
         Debug.Log("Hit Player");
         }
         else if(other.gameObject.tag == "Walls")
         {
+            hitParticles.Play();
             GetComponent<SpriteRenderer>().enabled = false;
             Destroy(gameObject, 0.5f);
             Debug.Log("Hit Wall");
@@ -56,6 +64,7 @@ public class SnowballShot : MonoBehaviour
         else
         {
             StartCoroutine("DestroyTime"); 
+            
         }
     }
 
@@ -63,6 +72,7 @@ public class SnowballShot : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         GetComponent<SpriteRenderer>().enabled = false;
+        hitParticles.Play();
         Destroy(gameObject, 0.5f);
     }
 }

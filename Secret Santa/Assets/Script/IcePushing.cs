@@ -19,12 +19,10 @@ public class IcePushing : MonoBehaviour
     private Vector3 dirX;
     bool Push = false;
     bool Moving = false;
-    [SerializeField] private ParticleSystem system;
 
     void Start()
     {
         movePoint.parent = null;
-        system.Stop();
     }
         
     void Update()
@@ -34,7 +32,6 @@ public class IcePushing : MonoBehaviour
         {
         if (Push)
         {
-
             // Left
             if (dirX.x >= -0.7 && dirX.x <= 0 && dirX.y <= 0.5 && dirX.y >= 0.1) // Collided from left
             {
@@ -45,12 +42,11 @@ public class IcePushing : MonoBehaviour
                 if(!Physics2D.OverlapCircle(movePoint.position + new Vector3(1,0,0), .2f, StopMove))
                 {
                 movePoint.position += new Vector3(1,0,0);
-                system.Play();
+                
                 }
                 else
                 {
                     Moving = false;
-                    system.Stop();
                 }
                 }
             }
@@ -63,12 +59,10 @@ public class IcePushing : MonoBehaviour
                 if(!Physics2D.OverlapCircle(movePoint.position + new Vector3(-1f,0f,0f), .2f, StopMove))
                 {
                 movePoint.position += new Vector3(-1f,0f,0f);
-                system.Play();
                 }
                 else
                 {
                     Moving = false;
-                    system.Stop();
                 }
                 }
             }
@@ -81,12 +75,10 @@ public class IcePushing : MonoBehaviour
                 if(!Physics2D.OverlapCircle(movePoint.position + new Vector3(0,-1,0), .2f, StopMove))
                 {
                 movePoint.position += new Vector3(0,-1,0);
-                system.Play();
                 }
                 else
                 {
                     Moving = false;
-                    system.Stop();
                 }
                 }
             }
@@ -99,18 +91,17 @@ public class IcePushing : MonoBehaviour
                 if(!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f,1f,0f), .2f, StopMove))
                 {
                 movePoint.position += new Vector3(0f,1f,0f);
-                system.Play();
                 }
                 else
                 {
                     Moving = false;
-                    system.Stop();
                 }
                 }
                 }
             }
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D coll) 
     {
