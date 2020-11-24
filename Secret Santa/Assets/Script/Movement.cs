@@ -81,7 +81,6 @@ public class Movement : MonoBehaviour
             animator.SetBool("Idle", true);
             animator.SetBool("Walking", false);
         }
-
     }
 
     void Move()
