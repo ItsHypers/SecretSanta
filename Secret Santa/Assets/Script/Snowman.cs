@@ -6,6 +6,7 @@ public class Snowman : MonoBehaviour
 {
     [SerializeField]
     public LayerMask StopMove;
+
     
     public Animator snowanim;
     public GameObject bulletPrefab;
