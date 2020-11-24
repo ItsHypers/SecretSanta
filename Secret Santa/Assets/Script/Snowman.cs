@@ -22,6 +22,7 @@ public class Snowman : MonoBehaviour
     {
         yield return new WaitForSeconds(4);
         snowanim.SetTrigger("Throw");
+        yield return new  WaitForSeconds(1.3f);
         StartCoroutine("ThrowTimer");
         Shoot();
     }

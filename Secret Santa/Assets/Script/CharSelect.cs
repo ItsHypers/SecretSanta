@@ -15,6 +15,7 @@ public class CharSelect : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI CharName;
     [SerializeField] private Image characSprite;
+    [SerializeField] private Image CharOnMountain;
     [SerializeField] private Image backColor;
 
     [Header("Sound References")]
@@ -35,7 +36,10 @@ public class CharSelect : MonoBehaviour
 
     public void Confirm()
     {
-        Debug.Log(string.Format("Character {0}:{1} has been chosen", selectedCharIndex, characterList[selectedCharIndex].characterName));
+        PlayerPrefs.SetInt("Color", selectedCharIndex);
+        Debug.Log(PlayerPrefs.GetInt("Color", 0));
+        CharOnMountain.sprite = characterList[selectedCharIndex].splash;
+        //Red = 0 Green = 1 Orange = 2 Blue = 3 Pink = 4
     }
 
     public void LeftArrow()

@@ -70,7 +70,7 @@ public class SnowballShot : MonoBehaviour
 
     private IEnumerator DestroyTime()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
         GetComponent<SpriteRenderer>().enabled = false;
         hitParticles.Play();
         Destroy(gameObject, 0.5f);

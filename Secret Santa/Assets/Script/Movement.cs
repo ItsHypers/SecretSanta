@@ -14,12 +14,24 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRenderer; 
     public Animator animator;
 
+    [Header("List Of Characters")]
+    [SerializeField] private List<CharList> characterList = new List<CharList>();
+
 
 
     void Awake() {
         speed = movespeed; //Makes the speed default to move-speed, to allow them to start sprinting
         spriteRenderer = GetComponent<SpriteRenderer>(); //Get's the SpriteRenderer on the GameObject the script is on
-        if (spriteRenderer.sprite == null) // if the sprite on spriteRenderer is null then
+         // if the sprite on spriteRenderer is null then
+        GetColor();
+    }
+
+    void GetColor()
+    {
+        int colorIndex = PlayerPrefs.GetInt("Color", 0);
+        Debug.Log(colorIndex);
+        backsprite = characterList[colorIndex].back;
+        forwardsprite = characterList[colorIndex].front;
         spriteRenderer.sprite = forwardsprite; // set the sprite to front sprite
     }
     
@@ -86,6 +98,13 @@ public class Movement : MonoBehaviour
     void Move()
     {
         rb.velocity = new Vector2 (md.x * speed, md.y * speed);
+    }
+
+    [System.Serializable]
+    public class CharList
+    {
+        public Sprite front;
+        public Sprite back;
     }
 
 }
