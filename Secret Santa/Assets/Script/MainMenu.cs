@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using TMPro;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject SettingMenuUI;
     [SerializeField] private AudioMixer Master;
     [SerializeField] private AudioMixer SFX;
+    public TMP_InputField mainInputField;
+    [SerializeField] private Text passcheck;
+    public CharSelect charscript;
+    [SerializeField] private string password;
     public void OnStart()
     {
         SceneManager.LoadScene("Testing");
@@ -29,6 +35,19 @@ public class MainMenu : MonoBehaviour
         Settings = false;
         SettingMenuUI.SetActive(false);
         MainMenuUI.SetActive(true);
+    }
+
+    public void CheckInput()
+    {
+        if(mainInputField.text == password)
+        {
+            charscript.duckUnlocked = true;
+            passcheck.text = "Duck Unlocked!";
+        }
+        else if(!charscript.duckUnlocked)
+        {
+            passcheck.text = "Wrong password!";
+        }
     }
 
     public void SetMasterVolume (float volume)

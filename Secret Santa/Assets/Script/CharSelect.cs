@@ -25,6 +25,7 @@ public class CharSelect : MonoBehaviour
 
     [Header("Tweaks")]
     [SerializeField] private float colorspeed = 10.0f;
+    [SerializeField] public bool duckUnlocked = false;
     
     
     private void Start() {
@@ -39,21 +40,25 @@ public class CharSelect : MonoBehaviour
         PlayerPrefs.SetInt("Color", selectedCharIndex);
         Debug.Log(PlayerPrefs.GetInt("Color", 0));
         CharOnMountain.sprite = characterList[selectedCharIndex].splash;
-        //Red = 0 Green = 1 Orange = 2 Blue = 3 Pink = 4
+        //Blue = 0 Green = 1 Orange = 2 Red = 3 Pink = 4
     }
 
     public void LeftArrow()
     {
         selectedCharIndex--;
-        if(selectedCharIndex < 0)
+        if(selectedCharIndex < 0 && duckUnlocked)
             selectedCharIndex = characterList.Count - 1;
+        else if(selectedCharIndex < 0 && !duckUnlocked)
+        {
+            selectedCharIndex = characterList.Count - 2;
+        }
         
         UpdateCharSelection();
     }
     public void RightArrow()
     {
         selectedCharIndex++;
-        if(selectedCharIndex == characterList.Count)
+        if(selectedCharIndex == (duckUnlocked? characterList.Count : characterList.Count - 1))
             selectedCharIndex = 0;
         
         UpdateCharSelection();
