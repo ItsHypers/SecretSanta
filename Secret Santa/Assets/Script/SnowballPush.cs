@@ -57,7 +57,7 @@ public class SnowballPush : MonoBehaviour
                 movePoint.position += new Vector3(0f,-1f,0f);
                 }
             }
-            else if(dirX.y >= -0.7 && dirX.y <= 0 && dirX.x <= 0.2 && dirX.x >= -0.3)
+            else if(dirX.y >= -0.9 && dirX.y <= 0 && dirX.x <= 0.2 && dirX.x >= -0.3)
             {
                 Push = false;
                 if(!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f,1f,0f), .2f, StopMove))

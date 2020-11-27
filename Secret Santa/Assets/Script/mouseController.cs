@@ -7,6 +7,7 @@ public class mouseController: MonoBehaviour { [SerializeField] private List < Au
 	private int sounds;
     private float pitch;
     private float pan;
+
 	void OnMouseDown() {
 		sounds = Random.Range(0, audiofiles.Count);
         pitch = Random.Range(0.2f, 1.0f);

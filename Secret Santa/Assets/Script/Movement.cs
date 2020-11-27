@@ -14,13 +14,19 @@ public class Movement : MonoBehaviour
     public Rigidbody2D rb;
     private Vector2 md;
     private Sprite init;
+    private string characterString;
     [SerializeField] int colorIndex;
     
     [SerializeField] public SpriteRenderer spriteRenderer; 
     [SerializeField] private Sprite[] initsprite;
 
     public Animator animator;
-    bool duck = false;
+    bool IsBlue = false;
+    bool IsGreen = false;
+    bool IsOrange = false;
+    bool IsRed = false;
+    bool IsPink = false;
+    bool IsDuck = false;
 
     [Header("List Of Characters")]
     [SerializeField] private List<CharList> characterList = new List<CharList>();
@@ -48,9 +54,35 @@ public class Movement : MonoBehaviour
         Debug.Log(init);
         spriteRenderer.sprite = init; // set the sprite to front sprite
         animator.SetInteger("Char", colorIndex);
-        if(colorIndex == 5)
+        if(colorIndex == 0)
         {
-            duck = true;
+            IsBlue = true;
+            characterString = "Blue";
+        }
+        else if(colorIndex == 1)
+        {
+            IsGreen = true;
+            characterString = "Green";
+        }
+        else if(colorIndex == 2)
+        {
+            IsOrange = true;
+            characterString = "Orange";
+        }
+        else if(colorIndex == 3)
+        {
+            IsRed = true;
+            characterString = "Red";
+        }
+        else if(colorIndex == 4)
+        {
+            IsPink = true;
+            characterString = "Pink";
+        }
+        else if(colorIndex == 5)
+        {
+            IsDuck = true;
+            characterString = "Duck";
         }
     }
     
@@ -80,63 +112,54 @@ public class Movement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         md = new Vector2(moveX, moveY).normalized;
-        if (moveX == 1) 
+        AnimSelection();
+    }
+
+    void AnimSelection()
+    {
+        if (md.y > 0) 
+        //If Player is moving Down. Do this
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(characterString + "Back"))
+            animator.Play(characterString + "Back");
+        }
+        else if (md.y < 0) 
+        //If Player is moving Up. Do this
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(characterString + "Up"))
+            animator.Play(characterString + "Up");
+        }
+        else if(md.x == 0)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(characterString + "Idle"))
+            animator.Play(characterString + "Idle");
+        }
+        else if (md.x > 0) 
         //If Player is moving Right. Do this
         {
-            animator.SetBool("Left", true);
-            animator.SetBool("Right", false);
-            animator.SetBool("Front", false);
-            animator.SetBool("Back", false);
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(characterString + "Left"))
+            animator.Play(characterString + "Left");
             //transform.rotation = Quaternion.Euler(0,180,0);
             spriteRenderer.sprite = init;
         }
-        else if (moveX == -1) 
+        else if (md.x < 0) 
         //If Player is moving Left. Do this
         {
-            animator.SetBool("Right", true);
-            animator.SetBool("Left", false);
-            animator.SetBool("Front", false);
-            animator.SetBool("Back", false);
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(characterString + "Right"))
+            animator.Play(characterString + "Right");
             //transform.rotation = Quaternion.Euler(0,0,0);
-            spriteRenderer.sprite = init;
         }
-        else
+        if(Input.GetKeyDown(KeyCode.Space))
         {
+            sounds = Random.Range(0, audiofiles.Count);
+            pitch = Random.Range(0.2f, 1.0f);
+            pan = Random.Range(-1.0f, 1.0f);
+            AudioS = GetComponent<AudioSource>();
+            AudioS.pitch = pitch;
+            AudioS.panStereo = pan;
+            AudioS.PlayOneShot(audiofiles[sounds].audio);   
         }
-
-        if (moveY == 1) 
-        //If Player is moving Down. Do this
-        {
-            spriteRenderer.sprite = init;
-            animator.SetBool("Back", true);
-            animator.SetBool("Front", false);
-            animator.SetBool("Left", false);
-            animator.SetBool("Right", false);
-        }
-        else if (moveY == -1) 
-        //If Player is moving Up. Do this
-        {
-            spriteRenderer.sprite = init;
-            animator.SetBool("Front", true);
-            animator.SetBool("Back", false);
-            animator.SetBool("Left", false);
-            animator.SetBool("Right", false);
-        }
-
-        if(duck)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                sounds = Random.Range(0, audiofiles.Count);
-                pitch = Random.Range(0.2f, 1.0f);
-                pan = Random.Range(-1.0f, 1.0f);
-                AudioS = GetComponent < AudioSource > ();
-                AudioS.pitch = pitch;
-                AudioS.panStereo = pan;
-                AudioS.PlayOneShot(audiofiles[sounds].audio);   
-            }
-        }
-    }
+}
 
     void Move()
     {

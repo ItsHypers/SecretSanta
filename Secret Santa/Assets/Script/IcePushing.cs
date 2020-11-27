@@ -25,6 +25,8 @@ public class IcePushing: MonoBehaviour {
 
 	void Update() {
 		transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
+		
+		
 		if (Vector3.Distance(transform.position, movePoint.position) <= .05f) {
 			if (Push) {
 				// Left
@@ -48,7 +50,7 @@ public class IcePushing: MonoBehaviour {
 					Moving = true;
 					while (Moving == true) {
 						if (!Physics2D.OverlapCircle(movePoint.position + new Vector3( - 1f, 0f, 0f), .2f, StopMove)) {
-							movePoint.position += new Vector3( - 1f, 0f, 0f);
+							movePoint.position += new Vector3(-1f, 0f, 0f);
 						}
 						else {
 							Moving = false;
@@ -68,7 +70,7 @@ public class IcePushing: MonoBehaviour {
 						}
 					}
 				}
-				else if (dirX.y >= -0.7 && dirX.y <= 0 && dirX.x <= 0.2 && dirX.x >= -0.3) //Up
+				else if (dirX.y >= -0.9 && dirX.y <= 0 && dirX.x <= 0.2 && dirX.x >= -0.3) //Up
 				{
 					Push = false;
 					Moving = true;
@@ -89,6 +91,7 @@ public class IcePushing: MonoBehaviour {
 		if (coll.gameObject.tag == "Player") {
 			var localPos = transform.InverseTransformPoint(coll.transform.position);
 			dirX = localPos;
+			Debug.Log(localPos);
 			Push = true;
 		}
 		else {
